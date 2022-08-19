@@ -1,0 +1,12 @@
+- config:
+    name: 检查百度正则表达式
+    output:
+      - regx
+
+- test:
+    name: 检查百度正则表达式
+    api: api/百度正则表达式演示.yml
+    extract:
+      - regx: '<title>(.+?)</title>'
+    validate:
+      - eq: ['<title>(.+?)</title>', '百度一下，你就知道' ]

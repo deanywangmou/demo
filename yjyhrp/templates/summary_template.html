@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+      <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试结果汇总</title>
+    <style>
+        .Fail {
+            color: red;
+            width: 7em;
+            text-align: center;
+        }
+        .Skiped {
+            color: red;
+            width: 7em;
+            text-align: center;
+        }
+        .Success {
+            color: green;
+            width: 7em;
+            text-align: center;
+        }
+        .details-col-elapsed {
+            width: 7em;
+            text-align: center;
+        }
+        .details-col-msg {
+            width: 7em;
+            text-align: center;
+            background-color:#ccc;
+        }
+        body {
+      background-color: #f2f2f2;
+      color: #333;
+      margin: 0 auto;
+      width: 960px;
+    }
+    #summary {
+      width: 960px;
+      margin-bottom: 20px;
+    }
+    #summary th {
+      background-color: skyblue;
+      padding: 5px 12px;
+    }
+    #summary td {
+      background-color: lightblue;
+      text-align: center;
+      padding: 4px 8px;
+    }
+
+    #details {
+      width: 960px;
+      margin-bottom: 20px;
+    }
+    #details th {
+      background-color: skyblue;
+      padding: 5px 12px;
+    }
+    #details td {
+      background-color: lightblue;
+      text-align: center;
+      padding: 4px 8px;
+    }
+
+    .button {
+      font-size: 1em;
+      padding: 6px;
+      width: 4em;
+      text-align: center;
+      background-color: #06d85f;
+      border-radius: 20px/50px;
+      cursor: pointer;
+      transition: all 0.3s ease-out;
+    }
+    a.button{
+      color: gray;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button:hover {
+      background: #2cffbd;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      transition: opacity 500ms;
+      visibility: hidden;
+      opacity: 0;
+      line-height: 25px;
+    }
+    .overlay:target {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .popup {
+      margin: 70px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      width: 50%;
+      position: relative;
+      transition: all 3s ease-in-out;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+      color: #333;
+      font-family: Tahoma, Arial, sans-serif;
+    }
+    .popup .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      transition: all 200ms;
+      font-size: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+    }
+    .popup .close:hover {
+      color: #06d85f;
+    }
+    .popup .content {
+      max-height: 80%;
+      overflow: auto;
+      text-align: left;
+    }
+    .popup .separator {
+      color:royalblue
+    }
+
+    @media screen and (max-width: 700px) {
+      .box {
+        width: 70%;
+      }
+      .popup {
+        width: 70%;
+      }
+    }
+
+    </style>
+</head>
+<body>
+<div >
+<h1 style=" text-align:center;">UI测试报告</h1>
+
+    <h2>详情:</h2>
+    <table id="details">
+        <tr >
+            <th width="300" class='details-col-msg'>用例名称</th>
+            <th class='details-col-msg'>执行结果</th>
+        </tr>
+        {% for r in results %}
+        <tr >            <!-标黄色的需要自定义的内容->
+            {% if r.buildId %}
+            <td class='details-col-elapsed'><a href="{{r.buildUrl}}" target="view_window">{{r.name}}</a></td>
+             <td class="{{r.result}}">{{r.result }}</td>
+            {% else %}
+            <td class='details-col-elapsed'><a href="{{r.report}}" target="view_window">{{r.name}}</a></td>
+             <td class="{{r.result}}">{{r.result }}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

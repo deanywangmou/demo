@@ -1,0 +1,26 @@
+name: 百度正则表达式演示
+base_url: https://www.baidu.com
+
+request:
+  method: GET
+  url: /
+  headers:
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+    Accept-Encoding: gzip, deflate, br
+    Accept-Language: zh-CN,zh;q=0.9
+    Cache-Control: max-age=0
+    Connection: keep-alive
+    Cookie: BIDUPSID=8E6819A2F10B30FBEC2F29BB827FE31A; PSTM=1657765143; BD_UPN=12314753; BAIDUID=3036ABEF86BEF2E0D9C61BD53D752233:FG=1; BDUSS=lZoYUZMNmp1bkxrUWRiNlJ6ZzZvbFZ2eTdPeHpZU2poY0swSENVMDRhTnE3aEZqSVFBQUFBJCQAAAAAAAAAAAEAAAAVDWIvyKbIptSyxOO49tChsuYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGph6mJqYepiZ; BDUSS_BFESS=lZoYUZMNmp1bkxrUWRiNlJ6ZzZvbFZ2eTdPeHpZU2poY0swSENVMDRhTnE3aEZqSVFBQUFBJCQAAAAAAAAAAAEAAAAVDWIvyKbIptSyxOO49tChsuYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGph6mJqYepiZ; BDORZ=FFFB88E999055A3F8A630C64834BD6D0; BA_HECTOR=a42gag20852g20242k02s39t1hfm0uf17; delPer=0; BD_CK_SAM=1; PSINO=6; ZFY=4KVHZJbMuTyiqTiF1Ue5g1zoG:Ap4:A6v5EtJegL:BaB8w:C; BAIDUID_BFESS=3036ABEF86BEF2E0D9C61BD53D752233:FG=1; COOKIE_SESSION=72788_0_9_9_26_7_0_1_9_7_1_4_70522_0_1549_0_1660636830_0_1660635281%7C9%2320860_14_1660033880%7C4; BD_HOME=1; H_PS_PSSID=37149_36542_36624_36641_37114_37107_36954_36918_36884_37163_37137_26350_36863_37022
+    Host: www.baidu.com
+    sec-ch-ua-mobile: ?0
+    sec-ch-ua-platform: "Windows"
+    Sec-Fetch-Dest: document
+    Sec-Fetch-Mode: navigate
+    Sec-Fetch-Site: none
+    Sec-Fetch-User: ?1
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36
+#extract:
+#  - regx: '<title>(.+?)</title>'
+validate:
+  - eq: [ "status_code", 200 ]
+#  - eq: ['<title>(.+?)</title>', 百度一下，你就知道 ]

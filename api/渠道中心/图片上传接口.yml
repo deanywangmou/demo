@@ -1,0 +1,21 @@
+name: 渠道商新增上传营业执照
+base_url: ${ENV(qudao)}
+variables:
+  filePath: data/1.jpeg
+  file1: ${get_file($filePath)}
+
+request:
+  url: /gateway/ensd-portal-channel-service/upload/file
+  method: POST
+  headers:
+    Accept-Encoding: gzip, deflate, br
+    token: $token
+  files:
+    # 图片的名称、图片的绝对路径、图片的类型（就是后缀）
+    file: ["1.jpeg",$file1,"image/jpeg"]
+    fileName: [null,"1.jpeg"]
+    thumb: [null,"true"]
+
+validate:
+  - eq: [ "status_code", 200 ]
+  - eq: [ json.message, "操作成功" ]

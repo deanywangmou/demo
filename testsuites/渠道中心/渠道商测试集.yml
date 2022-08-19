@@ -1,0 +1,19 @@
+config:
+  name: 查询渠道商信息
+  base_url: https://dev.ejiayou.com
+
+testcases:
+  用例：根据公司名称查询渠道商信息:
+    testcase: testcases/渠道中心/查询渠道商信息.yml
+    parameters:
+      name-result:
+        - [ 测试,测试 ]
+        - [ 加油,加油 ]
+        - [ 石化,石化 ]
+
+  用例：根据客户来源查询渠道商信息:
+    testcase: testcases/渠道中心/查询不同客户来源渠道商信息.yml
+    parameters:
+      sourceType: [1,2,3,4,5,6,7]
+
+

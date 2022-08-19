@@ -1,0 +1,25 @@
+config:
+  name: 渠道中心登录测试集合
+#  base_url: https://dev.ejiayou.com
+
+#testcases:
+#-
+#  name: 运行渠道中心接口串联
+#  testcase: testcases/渠道中心接口串联.yml
+
+
+testcases:
+  用例：运行渠道中心接口串联:
+    testcase: testcases/渠道中心接口串联.yml
+    parameters:
+      telephone-password-loginType: ${P(data/qudaologin.csv)}
+
+
+
+
+#testcases:                                              #说明引用的是testcases
+#    testcases5:                                         #这是一个名字，必须有
+#      testcase: ../testcases/test_channel4.yml          #引用的测试用例的路径
+#      parameters:                                       #对参数的描述，对于在测试用例中引用参数的场景，parameters是必须要有的
+#        channelName: ${P(/Users/xxxx/PycharmProjects/simpleTest/data/channelName.csv)}
+#        #channelName是在.csv文件中的变量名称，channelName的值是它自己所对应的.csv的路径

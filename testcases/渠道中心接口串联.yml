@@ -1,0 +1,25 @@
+- config:
+    name: 渠道中心登录testcase
+    variables:
+      telephone: $telephone
+      password: $password
+      loginType: $loginType
+    base_url: https://dev.ejiayou.com1
+#    output:
+#      - token
+
+- test:
+    name: 渠道中心登录
+    api: api/渠道中心登录接口.yml
+#    time: 3
+    variables:
+      telephone: $telephone
+      password: $password
+      loginType: $loginType
+      orderSql: SELECT use_order_id  from  yijiayou_rds2.user_merchandise WHERE use_order_id=9110000020155839
+      order: ${selectSqlOneData($orderSql,use_order_id)}
+#    extract:
+#      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+      - str_eq: [$order,'9110000020155839']

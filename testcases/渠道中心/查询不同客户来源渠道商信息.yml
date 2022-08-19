@@ -1,0 +1,38 @@
+- config:
+    name: 查询不同客户来源渠道商信息
+    base_url: ${ENV(qudao)}
+    output:
+      - token
+
+- test:
+    name: 渠道中心登录
+    api: api/渠道中心登录接口.yml
+    variables:
+      telephone: 18679256505
+      password: 12345678
+      loginType: 1
+    extract:
+      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+
+- test:
+    name: 根据客户来源查询渠道商信息
+    api: api/渠道中心/查询渠道商信息列表接口.yml
+#    skip: 这个用例我不想执行
+#    skipIf: ${has_token(token)}
+    skipUnless: ${has_token(token)}
+    variables:
+      endTime: ""
+      name: ""
+      pageNum: 1
+      pageSize: 10
+      platformName: ""
+      sourceType: $sourceType
+      startTime: ""
+    validate:
+      - eq: [ "status_code", 200 ]
+      - sum_status_code: [ "status_code", 2 ]
+      - {"check": "status_code", "comparator": "sum_status_code", "expect": 2}
+      - eq: [ json.data.list.0.sourceType, $sourceType]

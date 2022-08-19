@@ -1,0 +1,36 @@
+- config:
+    name: 查询渠道商信息列表
+    base_url: ${ENV(qudao)}
+    output:
+      - token
+
+- test:
+    name: 渠道中心登录
+    api: api/渠道中心登录接口.yml
+    variables:
+      telephone: 18679256505
+      password: 12345678
+      loginType: 1
+    extract:
+      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 根据公司名称查询渠道商信息
+    api: api/渠道中心/查询渠道商信息列表接口.yml
+    variables:
+      endTime: ""
+      name: $name
+      pageNum: 1
+      pageSize: 10
+      platformName: ""
+      sourceType: ""
+      startTime: ""
+    extract:
+      - name: json.data.list.0.name
+    validate:
+      #      - str_eq: ['${sleep(2)}','None']
+      - eq: [ "status_code", 200 ]
+      - contains: [ json.data.list.0.name, $result ]
+      - contains: [ $name, $result ]

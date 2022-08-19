@@ -1,0 +1,71 @@
+config:
+    name: testcase description
+    variables: {}
+teststeps:
+-   name: /gateway/ensd-portal-channel-service/cooperationCompanyInfo/addCompanyInfo/-1
+    request:
+        headers:
+            Content-Type: application/json
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-origin
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36
+            sec-ch-ua: '"Chromium";v="104", " Not A;Brand";v="99", "Google Chrome";v="104"'
+            sec-ch-ua-mobile: ?0
+            sec-ch-ua-platform: '"Windows"'
+            token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODY3OTI1NjUwNSIsImF1ZCI6IjEyMjEyIiwiaXNzIjoiZWppYXlvdSIsIm5hbWUiOiLnjovmmbrlubMiLCJleHAiOjE2NjA3Mjk3NzcsImlhdCI6MTY2MDcwMDk3N30.76krTzUmR6QjNhjRFAtYv1IUtYyxyY09G6ZsKs6t35Q
+        json:
+            accountLicenseUrl: null
+            address: 测试一下子日志
+            areaId: 110101
+            areaName: 东城区
+            banks: []
+            businessLicenseUrl: https://img.ejiayou.com/upload/2022/8/c198103a-128c-4484-9aa2-c3cb0520034d-1660620678367.jpg
+            businessNo: '32323'
+            cityId: 110100
+            cityName: 北京市
+            contractSubject: 1
+            cooperationStatus: 4
+            createTime: null
+            createUser: null
+            desc: 是的
+            email: 321321@163.com
+            fixedPhone: null
+            id: 598
+            invoice: {}
+            joinUserId: 11972
+            joinUserName: 高鹏飞
+            name: 测试一下子日志
+            onlineTime: null
+            phone: '3213321'
+            phoneName: 测试一下子日志
+            proviceName: 北京市
+            provinceId: 110000
+            serialNumber: null
+            sourceType: 1
+            state: 1
+            type: 1
+            updateTime: '2022-08-16 11:57:17'
+            updateUser: 王智平
+        method: POST
+        url: https://dev.ejiayou.com/gateway/ensd-portal-channel-service/cooperationCompanyInfo/addCompanyInfo/-1
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=UTF-8
+    -   eq:
+        - content.code
+        - 200
+    -   eq:
+        - content.message
+        - 操作成功
+    -   eq:
+        - content.totalCount
+        - null
+    -   eq:
+        - content.success
+        - true

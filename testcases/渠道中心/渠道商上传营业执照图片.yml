@@ -1,0 +1,38 @@
+- config:
+    setup_hooks:
+      - ${setup_case()}
+    teardown_hooks:
+      - ${teardown_case()}
+    name: 渠道商上传营业执照图片
+    variables:
+      telephone: 18679256505
+      password: 12345678
+      loginType: 1
+    base_url: https://dev.ejiayou.com1
+    output:
+      - token
+      - url
+
+- test:
+    setup_hooks:
+      - ${setup_case()}
+    teardown_hooks:
+      - ${teardown_case()}
+    name: 渠道中心登录
+    api: api/渠道中心登录接口.yml
+    variables:
+      telephone: $telephone
+      password: $password
+      loginType: $loginType
+    extract:
+      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 渠道商上传营业执照图片
+    api: api/渠道中心/图片上传接口.yml
+    extract:
+      - url: json.data.url
+    validate:
+      - eq: [ "status_code", 200 ]

@@ -1,0 +1,35 @@
+name: 渠道商列表查询
+variables:
+  pageNum: 1
+  pageSize: 10
+base_url: ${ENV(qudao)}
+
+
+request:
+  url: /gateway/ensd-portal-channel-service/cooperationCompanyInfo/getCompanyInfoList
+  method: POST
+  headers:
+    Accept: application/json, text/plain, */*
+    Content-Type: application/json
+    token: $token
+
+  json:
+    endTime: $endTime
+    name: $name
+    pageNum: $pageNum
+    pageSize: $pageSize
+    platformName: $platformName
+    sourceType: $sourceType
+    startTime: $startTime
+
+#extract:
+#  - name: json.data.list.0.name
+
+validate:
+  - eq: [ "status_code", 200 ]
+  - eq: [ json.message, "操作成功" ]
+#  - contains: [ $name, $result ]
+setup_hooks:
+  - ${setup_case()}
+teardown_hooks:
+  - ${teardown_case()}

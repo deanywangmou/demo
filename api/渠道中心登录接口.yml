@@ -1,0 +1,22 @@
+name: 渠道中心登录
+base_url: ${ENV(qudao)}
+variables:
+  loginPara:
+    telephone: $telephone
+    password: $password
+    loginType: $loginType
+
+request:
+  url: /gateway/ensd-portal-channel-service/login/login
+  method: POST
+  headers:
+    Accept: application/json
+    Content-Type: application/json
+    Cookie: loginInfo=%E7%89%9B%E7%89%9B%E6%B2%B9%E7%AB%99%23123456; Hm_lvt_f99ae0a2b506cb4c0f6d351bae3c096f=1657791140; laravel_session=eyJpdiI6IlJxUnN6ajR5UEJ3S2hjbVZLU2l1YVE9PSIsInZhbHVlIjoiTFJYYnFYR3Z4a3pxOSt1WmptZVJ0TkVtZ3RPWmRwUjdDMHdkakMxZldEUmhhN29xMkhGUkhnbVQxWVQzRVk2NFZrRTRkdjBLQ3dHSDNvWEt0SUdOb2c9PSIsIm1hYyI6ImQyYWI1YWNiNDNjYzRiYTYwODNkNGRkYjNjNzE4YjYxMDc5NThkZGU1OWQ5NDU5ODliMzA0MGMyYTQxMDk3N2YifQ%3D%3D
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36
+
+  json: $loginPara
+
+validate:
+  - eq: [ "status_code", 200 ]
+  - eq: [ json.message, "操作成功" ]
