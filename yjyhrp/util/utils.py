@@ -470,7 +470,7 @@ def sleep(n_secs):
     create_file(os.path.join(project_name, "testcases", "demo_testcase.yml"), demo_testcase_content)
     create_file(os.path.join(project_name, "testsuites", "demo_testsuite.yml"), demo_testsuite_content)
     create_file(os.path.join(project_name, "debugtalk.py"), demo_debugtalk_content)
-    create_file(os.path.join(project_name, "../../.env"), demo_env_content)
+    create_file(os.path.join(project_name, "../.env"), demo_env_content)
     create_file(os.path.join(project_name, ".gitignore"), ignore_content)
 
 
