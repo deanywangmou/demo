@@ -1,0 +1,91 @@
+- config:
+    name: 首页我的页面操作
+    base_url: ${ENV(CPORTURL)}
+    output:
+      - token
+
+- test:
+    name: 登录账号，获取token
+    api: api/C端接口/C端登录接口.yml
+    variables:
+      accessToken:
+      apName: 易加油app
+      latitude: 25.0001
+      loginType: BY_PHONE
+      longitude: 27.8882
+      machineNo: 三星S11
+      openId:
+      phone: 18679256505
+      phoneType: 1
+      smsCode: 123456
+      socialAppId:
+      socialType:
+      sourceChannel: 1
+      unionId:
+      userPhoneSerial: 12321321321321
+      version: 6.4.3
+    extract:
+      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 查询我的用户信息
+    api: api/C端接口/查询我的信息接口.yml
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 个人信息修改
+    api: api/C端接口/我的信息修改接口.yml
+    variables:
+      avatar: "https://pto-test.oss-cn-shenzhen.aliyuncs.com/img/2.jpg"
+      birthday: "1992-05-31 00:00:00"
+      createdTime: "2022-08-31 11:37:16"
+      nickname: 王某
+      phone: 18679256505
+      sex: 1
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 查询我的用户信息
+    api: api/C端接口/查询我的信息接口.yml
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 更改手机号码
+    api: api/C端接口/更改用户手机号码接口.yml
+    variables:
+      newPhone: 18679256555
+      note: 111111
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 查询我的用户信息
+    api: api/C端接口/查询我的信息接口.yml
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 注销用户
+    api: api/C端接口/用户注销接口.yml
+    variables:
+      note: 123456
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 查询用户收藏油站信息
+    api: api/C端接口/用户收藏油站接口.yml
+    variables:
+      isAsc: true
+      oilBrand: []
+      oilType:
+      pageNum:
+      pageSize:
+      sidx:
+    validate:
+      - eq: [ "status_code", 200 ]

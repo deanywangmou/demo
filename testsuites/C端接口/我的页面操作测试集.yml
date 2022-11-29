@@ -1,0 +1,6 @@
+config:
+  name: 我的页面信息查看及操作
+
+testcases:
+  用例:我的页面信息查看及操作:
+    testcase: testcases/C端接口/首页我的信息操作.yml

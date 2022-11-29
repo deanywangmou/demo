@@ -383,7 +383,7 @@ def create_scaffold(project_name):
         logger.color_print(msg, "BLUE")
 
     demo_api_content = """
-name: demo api
+name: yjyhrun api
 variables:
     var1: value1
     var2: value2
@@ -399,7 +399,7 @@ validate:
 """
     demo_testcase_content = """
 config:
-    name: "demo testcase"
+    name: "yjyhrun testcase"
     variables:
         device_sn: "ABC"
         username: ${ENV(USERNAME)}
@@ -408,7 +408,7 @@ config:
 
 teststeps:
 -
-    name: demo step 1
+    name: yjyhrun step 1
     api: path/to/api1.yml
     variables:
         user_agent: 'iOS/10.3'
@@ -418,14 +418,14 @@ teststeps:
     validate:
         - eq: ["status_code", 200]
 -
-    name: demo step 2
+    name: yjyhrun step 2
     api: path/to/api2.yml
     variables:
         token: $token
 """
     demo_testsuite_content = """
 config:
-    name: "demo testsuite"
+    name: "yjyhrun testsuite"
     variables:
         device_sn: "XYZ"
     base_url: "http://127.0.0.1:5000"

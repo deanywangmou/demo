@@ -1,0 +1,31 @@
+name: C端登录注册
+base_url: ${ENV(CPORTURL)}
+variables:
+  applogin:
+    accessToken: $accessToken
+    apName: 易加油app
+    latitude: 25.0001
+    loginType: $loginType
+    longitude: 27.8882
+    machineNo: 三星S11
+    openId:
+    phone: $phone
+    phoneType: 1
+    smsCode: $smsCode
+    socialAppId:
+    socialType:
+    sourceChannel: 1
+    unionId:
+    userPhoneSerial: 12321321321321
+    version: 6.4.3
+
+request:
+  url: /ensd-c-interface/login
+  method: POST
+  headers:
+    Content-Type: application/json
+  json: $applogin
+validate:
+  - eq: [ status_code, 200 ]
+  - eq: [ json.code, 200 ]
+  - eq: [ json.message, "操作成功" ]

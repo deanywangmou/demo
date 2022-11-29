@@ -1,0 +1,25 @@
+name: 已登录状态发送短信验证码接口
+base_url: ${ENV(CPORTURL)}
+variables:
+  getNotePara:
+    code: 2
+    phone: $phone
+
+request:
+  url: /ensd-c-interface/getNote
+  method: POST
+  headers:
+    Content-Type: application/json
+    Authorization: $token
+    adCode: "440304"
+    latitude: "22.487379"
+    longitude: "113.922152"
+    # machineNo: 易加油
+    osType: "0"
+    version: 6.5.6
+    versionBuild: "1234"
+  json: $getNotePara
+validate:
+  - eq: [ status_code, 200 ]
+  - eq: [ json.code, 200 ]
+  - eq: [ json.message, "操作成功" ]

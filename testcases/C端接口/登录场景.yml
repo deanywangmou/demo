@@ -1,0 +1,57 @@
+- config:
+    name: 所有渠道登录场景
+    base_url: ${ENV(CPORTURL)}
+    output:
+      - userId
+      - token
+
+- test:
+    name: $name
+    api: api/C端接口/C端登录接口.yml
+    variables:
+      accessToken: $accessToken
+      apName: 易加油app
+      latitude: 25.0001
+      loginType: $loginType
+      longitude: 27.8882
+      machineNo: 三星S11
+      openId:
+      phone: $phone
+      phoneType: $phoneType
+      smsCode: $smsCode
+      socialAppId:
+      socialType:
+      sourceChannel: 1
+      unionId:
+      userPhoneSerial: 12321321321321
+      version: 6.4.3
+    extract:
+      - userId: json.data.userId
+      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 未登录状态发送手机验证码
+    api: api/C端接口/未登录发送短信验证码接口.yml
+    variables:
+      phone: 18679256505
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 已登录状态发送手机验证码
+    api: api/C端接口/已登录状态获取短信验证码接口.yml
+    variables:
+      phone:
+      code: 1
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 通过用户id获取token
+    api: api/C端接口/通过用户id获取token接口.yml
+    variables:
+      userId: $userId
+    validate:
+      - eq: [ "status_code", 200 ]

@@ -1,0 +1,14 @@
+name: 首页获取活动一级标签
+base_url: ${ENV(CPORTURL)}
+
+request:
+  url: /ensd-c-interface/homePage/getOneLevelActivityTag
+  method: GET
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+    Authorization: $token
+  params:
+validate:
+  - eq: [ status_code, 200 ]
+  - eq: [ json.code, 200 ]
+  - eq: [ json.message, 操作成功 ]

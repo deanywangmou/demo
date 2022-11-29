@@ -1,0 +1,77 @@
+- config:
+    name: 查询首页展示信息
+    base_url: ${ENV(CPORTURL)}
+    output:
+      - token
+
+- test:
+    name: 登录账号，获取token
+    api: api/C端接口/C端登录接口.yml
+    variables:
+      accessToken:
+      apName: 易加油app
+      latitude: 25.0001
+      loginType: BY_PHONE
+      longitude: 27.8882
+      machineNo: 三星S11
+      openId:
+      phone: 18679256505
+      phoneType: 1
+      smsCode: 123456
+      socialAppId:
+      socialType:
+      sourceChannel: 1
+      unionId:
+      userPhoneSerial: 12321321321321
+      version: 6.4.3
+
+    extract:
+      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 查询首页默认信息
+    api: api/C端接口/油站首页接口.yml
+    variables:
+      activityType:
+      currentPage: 0
+      latitude:
+      longitude:
+      oilType:
+      orderingRule:
+      pageSize: 10
+      platform: 1
+      stationBrandList:
+      token: $token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 首页查询油站活动一级标签
+    api: api/C端接口/获取一级活动标签接口.yml
+    validate:
+      - eq: [ "status_code", 200 ]
+- test:
+    name: 首页获取广告
+    api: api/C端接口/获取通用广告接口.yml
+    variables:
+      adPositionId:
+      cityId:
+      platformId: 1
+      stationId:
+      userLabelId:
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 首页搜索油站
+    api: api/C端接口/首页油站搜索接口.yml
+    variables:
+      currentPage: 0
+      latitude: 25.0001
+      longitude: 27.8882
+      pageSize: 0
+      stationName: 油
+    validate:
+      - eq: [ "status_code", 200 ]

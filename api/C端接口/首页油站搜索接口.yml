@@ -1,0 +1,21 @@
+name: 首页油站搜索
+base_url: ${ENV(CPORTURL)}
+variables:
+  searchParams:
+    currentPage: $currentPage
+    latitude: $latitude
+    longitude: $longitude
+    pageSize: $pageSize
+    stationName: $stationName
+
+request:
+  url: /ensd-c-interface/homePage/getStationByName
+  method: GET
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+    Authorization: $token
+  params: $searchParams
+validate:
+  - eq: [ status_code, 200 ]
+  - eq: [ json.code, 200 ]
+  - eq: [ json.message, 操作成功 ]

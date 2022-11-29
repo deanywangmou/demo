@@ -1,0 +1,52 @@
+- config:
+    name: 查询油站详情信息展示
+    base_url: ${ENV(CPORTURL)}
+    output:
+      - token
+
+- test:
+    name: 登录账号，获取token
+    api: api/C端接口/C端登录接口.yml
+    variables:
+      accessToken:
+      apName: 易加油app
+      latitude: 25.0001
+      loginType: BY_PHONE
+      longitude: 27.8882
+      machineNo: 三星S11
+      openId:
+      phone: 18679256505
+      phoneType: 1
+      smsCode: 123456
+      socialAppId:
+      socialType:
+      sourceChannel: 1
+      unionId:
+      userPhoneSerial: 12321321321321
+      version: 6.4.3
+    extract:
+      - token: json.data.token
+    validate:
+      - eq: [ "status_code", 200 ]
+
+- test:
+    name: 查询某一油站详情信息
+    api: api/C端接口/油站详情接口.yml
+    variables:
+      latitude:
+      longitude:
+      oilType:
+      stationId: 38258
+      token: $token
+      platformId: 1
+    validate:
+      - eq: [ "status_code", 200 ]
+
+
+- test:
+    name: 获取码表信息
+    api: api/C端接口/获取码表接口.yml
+    variables:
+      codeKeyList: []
+    validate:
+      - eq: [ "status_code", 200 ]

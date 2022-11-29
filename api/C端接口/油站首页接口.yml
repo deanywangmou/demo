@@ -1,0 +1,29 @@
+name: 油站首页
+base_url: ${ENV(CPORTURL)}
+variables:
+  firstPageParams:
+    activityType: $activityType
+    currentPage: $currentPage
+    latitude: $latitude
+    longitude: $longitude
+    oilType: $oilType
+    orderingRule: $orderingRule
+    pageSize: $pageSize
+    platform: $platform
+    stationBrandList: $stationBrandList
+    token: $token
+
+request:
+  url: /ensd-c-interface/homePage/getStationHomePage
+  method: POST
+  headers:
+    Content-Type: application/json
+    Authorization: $token
+  json: $firstPageParams
+
+
+
+validate:
+  - eq: [ status_code, 200 ]
+  - eq: [ json.code, 200 ]
+  - eq: [ json.message, 操作成功 ]

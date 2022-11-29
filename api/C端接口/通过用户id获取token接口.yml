@@ -1,0 +1,17 @@
+name: 登录获取token
+base_url: ${ENV(CPORTURL)}
+variables:
+  userId: $userId
+
+request:
+  url: /ensd-c-interface/login
+  method: GET
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  params:
+    userId: $userId
+
+validate:
+  - eq: [ status_code, 200 ]
+  - eq: [ json.code, 200 ]
+  - eq: [ json.message, "操作成功" ]

@@ -2,7 +2,7 @@ import os
 import time
 from decimal import Decimal
 from urllib import parse
-
+import requests
 import yaml
 import random
 from faker import Faker
@@ -188,13 +188,73 @@ def updateSql(sql, *args, **kwargs):
         print('update语句执行失败')
 
 
+def gettime_delta3():
+    '''
+    获取当前时间戳小数点后三位
+    :return: 返回13位时间戳
+    '''
+    prentTime = int(time.time() * 1000)
+    return str(prentTime)
+
+
+def dict_swapper_list(para):
+    newList = []
+    newList.append(para)
+    return newList
+
+
+def getSign_h5():
+    '''
+    获取h5签名信息
+    :return:
+    '''
+    ret = requests.get("https://dev.ejiayou.com/sign/h5/d5d6e3d8b8cca38/0ba224ca335bf18")
+    sign = ret.text.split('=')[2]
+    return sign
+
+
+def getTime_h5():
+    '''
+    获取h5时间戳信息
+    :return:
+    '''
+    ret = requests.get("https://dev.ejiayou.com/sign/h5/tRmFSGexZmIxVR4o/Ea8u3e23tvYD8yi3")
+    time = ret.text.split('=')[1].split('&')[0]
+    return time
+
+
+def getSign_api():
+    '''
+    获取api签名信息
+    :return:
+    '''
+    ret = requests.get("https://dev.ejiayou.com/sign/api/cji49oEtvjoGbRyU/x4Ow2IX1C4zzHcjE")
+    signList = ret.text.split('/')
+    return signList
+
+
+value = getSign_api()
+
+
+def forEach(key):
+    for i in range(len(value)):
+        if i == key:
+            return value[0]
+        else:
+            return value[1]
+
+
+
+
 if __name__ == '__main__':
-    # yaml_read('api/渠道中心登录测试集.yml')
-    # yaml_write('testcases/yaml文件写入.yml')
-    # print(createAddress())
     # print(strSwapUrl('http://www.baidu.com'))
     # print(urlSwapStr('http%3A%2F%2Fwww.baidu.com'))
-
-    os.environ['DATA_PATH'] = './env/DEV/database.ini'
-    sql = "SELECT use_order_id  from  yijiayou_rds2.user_merchandise WHERE use_order_id=9110000020155839"
-    selectSqlOneData(sql, 'use_order_id')
+    # print(gettime_delta3())
+    # para = {"adPositionId": "", "cityId": "", "platformId": 1, "stationId": "", "userLabelId": ""}
+    # print(dict_swapper_list(para))
+    # print(forEach(0))
+    # print(forEach(1))
+    import random
+    num = random.randint(0, 4)
+    person = ["高老师", "铭奇", "国旺", "佳辉", "石根"]
+    print("%s主持周四分享", person[num])
