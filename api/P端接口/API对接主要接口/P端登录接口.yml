@@ -1,0 +1,16 @@
+name: P端登录注册
+base_url: ${ENV(PPORTURL)}
+variables:
+  version: $version
+  platformName: $platformName
+  sign: $sign
+  tempStamp: $tempStamp
+
+request:
+  url: /ensd-service/openApi/user/login/{version}/{platformName}/{sign}/{tempStamp}
+  method: GET
+
+validate:
+  - eq: [ "status_code", 200 ]
+  - eq: [ json.code, 0 ]
+  - eq: [ json.success, "true" ]

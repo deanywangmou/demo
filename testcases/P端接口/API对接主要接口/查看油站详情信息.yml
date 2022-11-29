@@ -1,0 +1,39 @@
+- config:
+    name: 查看油站详情信息
+    base_url: ${ENV(PPORTURL)}
+    variables:
+      sign: ${forEach(0)}
+      timestamp: ${forEach(1)}
+
+- test:
+    name: 查看油站详情信息
+    api: api/P端接口/API对接主要接口/油站详情接口.yml
+    variables:
+      version: 6.5.6
+      platformName: Rbxac
+      stationId: $stationId
+      sign: $sign
+      timestamp: $timestamp
+      userPhone: 18679256505
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      versionBuild:
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.success, True ]
+      - str_eq: [ json.data.prices.0.discountPrice, "7.15" ]
+      - str_eq: [ json.data.prices.1.discountPrice, "7.40" ]
+      - str_eq: [ json.data.prices.2.discountPrice, "7.90" ]
+      - str_eq: [ json.data.prices.3.discountPrice, "8.10" ]
+

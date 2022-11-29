@@ -1,0 +1,35 @@
+name: 订单支付接口
+base_url: ${ENV(PPORTURL)}
+variables:
+  version: $version
+  orderSign: $orderSign
+  platformName: $platformName
+  sign: $sign
+  timestamp: $timestamp
+  orderPayVO:
+    orderSign: $orderSign
+    outOrderSign: $outOrderSign
+    totalAmount: $payAmount
+
+request:
+  url: /gateway/ensd-service/openApi/order/pay/$version/$orderSign/$platformName/$sign/$timestamp
+  method: POST
+  headers:
+    Content-Type: application/json
+    clientType: $clientType
+    productType: $productType   #平台标识
+    socialType: $socialType
+    sourceType: $sourceType     #渠道:C：1, P:2, Y:3
+    Authorization:
+    cityName:
+    latitude:
+    longitude:
+    machineNo:
+    noAuth:
+    osType:
+    plat:
+    userPhone: $userPhone
+    versionBuild:
+  json: $orderPayVO
+validate:
+  - eq: [ status_code, 200 ]

@@ -1,0 +1,33 @@
+name: 查询优惠券接口
+base_url: ${ENV(PPORTURL)}
+variables:
+  version: $version
+  platformName: $platformName
+  userPhone: $userPhone
+  sign: $sign
+  timestamp: $timestamp
+  merchandiseVo:
+    oilgunCode: $oilgunCode
+    stationId: $stationId
+    totalAmount: $totalAmount
+
+request:
+  url: /gateway/ensd-service/openApi/merchandise/query/$version/$userPhone/$platformName/$sign/$timestamp
+  method: GET
+  headers:
+    clientType: $clientType
+    productType: $productType   #平台标识
+    socialType: $socialType
+    sourceType: $sourceType     #渠道:C：1, P:2, Y:3
+    Authorization:
+    cityName:
+    latitude:
+    longitude:
+    machineNo:
+    noAuth:
+    osType:
+    plat:
+    versionBuild:
+  params: $merchandiseVo
+validate:
+  - eq: [ "status_code", 200 ]

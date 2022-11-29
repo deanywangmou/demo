@@ -1,0 +1,38 @@
+- config:
+    name: 查看实时油价信息
+    base_url: ${ENV(PPORTURL)}
+    variables:
+      sign: ${forEach(0)}
+      timestamp: ${forEach(1)}
+
+- test:
+    name: $name1
+    api: api/P端接口/API对接主要接口/实时油价接口.yml
+    variables:
+      version: 6.5.6
+      platformName: Rbxac
+      sign: $sign
+      timestamp: $timestamp
+      identityCode:
+      oilId: $oilId
+      stationIds: $stationIds
+      userPhone:
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道:C：1, P:2, Y:3
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      versionBuild:
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.success, True ]
+      - str_eq: [ json.data.0.oilPrice, $result ]
+

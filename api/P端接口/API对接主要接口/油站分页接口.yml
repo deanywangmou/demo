@@ -1,0 +1,18 @@
+name: 油站分页接口
+base_url: ${ENV(PPORTURL)}
+variables:
+  stationParas:
+    currentPage: $currentPage
+    pageSize: $pageSize
+    platformName: $platformName
+    sign: $sign
+    timestamp: $timestamp
+
+request:
+  url: /gateway/ensd-p-oil-service/openApi/stationPage/list/$currentPage/$pageSize/$platformName/$sign/$timestamp
+  method: GET
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+#  params: $stationParas
+validate:
+  - eq: [ "status_code", 200 ]

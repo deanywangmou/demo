@@ -1,0 +1,188 @@
+- config:
+    name: 订单支付
+    base_url: ${ENV(PPORTURL)}
+    variables:
+      totalAmount: 200
+      stationId: "38303"   #老王P端测试不参与任何活动~不可动勿动
+      userPhone: "18679256505"
+      sign: ${forEach(0)}
+      timestamp: ${forEach(1)}
+      platformName: Rbxac
+    output:
+      - orderSign
+      - orderId
+      - payAmount
+
+- test:
+    name: 订单计算
+    api: api/P端接口/API对接主要接口/订单计算接口.yml
+    variables:
+      version: 6.5.6
+      platformName: $platformName
+      sign: $sign
+      timestamp: $timestamp
+      identityCode: 6  #唯一标识
+      oilgunCode: 1
+      phoneNumber: $userPhone
+      stationId: $stationId
+      totalAmount: $totalAmount
+      userCouponId:
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      userPhone: $userPhone
+      versionBuild:
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.code, 200 ]
+      - eq: [ json.success, True ]
+      - str_eq: [ json.data.discountAmount, "1.39" ]
+      - str_eq: [ json.data.payAmount, "198.61" ]
+
+- test:
+    name: 创建油站订单
+    api: api/P端接口/API对接主要接口/创建订单接口.yml
+    variables:
+      version: 6.5.6
+      platformName: $platformName
+      sign: $sign
+      timestamp: $timestamp
+      hadInvoice: true    #是否需要发票
+      identityCode:
+      invoiceHead:     #发票抬头
+      invoiceNumber:   #个人税号
+      oilgunCode: 1
+      outOrderSign:   #第三方订单号
+      phoneNumber: $userPhone
+      plateNumber:   #车牌号码
+      stationId: $stationId
+      totalAmount: $totalAmount
+      userCouponId:
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      userPhone: $userPhone
+      versionBuild:
+    extract:
+      orderSign: json.data.orderSign
+      payAmount: json.data.payAmount
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.code, 200 ]
+      - eq: [ json.success, True ]
+      - eq: [ json.data.payAmount, "198.61" ]
+      - eq: [ json.data.discountPrice, "7.15" ]
+
+- test:
+    name: 用户支付订单
+    api: api/P端接口/API对接主要接口/订单支付接口.yml
+    variables:
+      version: 6.5.6
+      orderSign: $orderSign    #订单标识---订单号
+      platformName: $platformName
+      sign: $sign
+      timestamp: $timestamp
+      outOrderSign: 1111
+      payAmount: $payAmount
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      userPhone: $userPhone
+      versionBuild:
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.code, 200 ]
+      - eq: [ json.success, True ]
+      - contains: ["text", 'totalCount']
+
+- test:
+    name: 查询历史订单
+    api: api/P端接口/API对接主要接口/历史订单查询接口.yml
+    variables:
+      version: 6.5.6
+      platformName: $platformName
+      userPhone: $userPhone
+      sign: $sign
+      timestamp: $timestamp
+      page: 1
+      stationIds: $stationId
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      versionBuild:
+    extract:
+      orderId: json.data.orderList.0.orderId
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.code, 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.success, True ]
+
+- test:
+    name: 订单退款操作
+    api: api/P端接口/API对接主要接口/订单退款接口.yml
+    variables:
+      version: 6.5.6
+      platformName: $platformName
+      userPhone: $userPhone
+      orderId: $orderId
+      sign: $sign
+      timestamp: $timestamp
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      versionBuild:
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.code, 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.success, True ]
+      - str_eq: [ json.data.status, 2 ]

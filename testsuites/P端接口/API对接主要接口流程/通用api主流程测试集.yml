@@ -1,0 +1,70 @@
+config:
+  name: 通用api主流程测试集
+
+testcases:
+    用例:全量油站信息展示:
+      testcase: testcases/P端接口/API对接主要接口/全量油站信息展示.yml
+
+    用例:$name:
+      testcase: testcases/P端接口/API对接主要接口/油站分页信息展示.yml
+      parameters:
+        name-currentPage-pageSize:
+          - [ 查询第1页油站数据,1,10 ]
+          - [ 查询第2页油站数据,2,10 ]
+          - [ 查询第3页油站数据,3,10 ]
+          - [ 查询第4页油站数据,4,10 ]
+          - [ 查询第5页油站数据,5,10 ]
+          - [ 查询第6页油站数据,6,10 ]
+
+    用例:$name1:
+      testcase: testcases/P端接口/API对接主要接口/查看实时油价信息.yml
+      variables:
+        stationIds: 38303   #老王P端测试专用~不可动勿动
+      parameters:
+        name1-oilId-result:
+          - [ 检查staionId=38303油站92#用户单价, 1, "7.15" ]
+          - [ 检查staionId=38303油站95#用户单价,2, "7.40" ]
+          - [ 检查staionId=38303油站0#用户单价, 3, "7.90" ]
+          - [ 检查staionId=38303油站98#用户单价, 4, "8.10" ]
+
+    用例:查看油站详情信息:
+      testcase: testcases/P端接口/API对接主要接口/查看油站详情信息.yml
+      variables:
+        stationId: 38303   #老王P端测试专用~不可动勿动
+
+    用例:$name2:
+      testcase: testcases/P端接口/API对接主要接口/不使用优惠券订单计算应付金额.yml
+      parameters:
+        name2-phoneNumber-oilgunCode-stationId-totalAmount-userCouponId-result2-payAmount: ${P(data/checkTotalAmount_unUseCoupon.csv)}
+#          - [ 参与油站和平台活动，92#不使用优惠券检验应付金额,"18679256505", 1, 38302, 200,"","4.17","195.83" ]
+#          - [ 参与油站和平台活动，95#不使用优惠券检验应付金额, "18679256505",2, 38302, 200,"","5.34","194.66" ]
+#          - [ 参与油站和平台活动，0#不使用优惠券检验应付金额,"18679256505", 3, 38302, 200,"","5.00","195.00" ]
+#          - [ 参与油站和平台活动，98#不使用优惠券检验应付金额, "18679256505",4, 38302, 200,"","4.88","195.12" ]
+
+    用例:$name3:
+      testcase: testcases/P端接口/API对接主要接口/使用优惠券订单计算应付金额.yml
+      variables:
+        userCouponIdSql: SELECT id from ejy_ucs.member_coupon where  member_id = 103970288 AND state=1 ORDER BY id desc LIMIT 1;
+        userCouponId: ${selectSqlOneData($userCouponIdSql,id)}
+      parameters:
+        name3-phoneNumber-oilgunCode-stationId-totalAmount-result3-payAmount: ${P(data/checkTotalAmount_useCoupon.csv)}
+#          - [ 参与平台xy活动，92#使用优惠券检验应付金额, 18679256505,1, 38311, 200,"16.39","94.73" ]
+#          - [ 参与平台xy活动，95#使用优惠券检验应付金额, 18679256505,2, 38311, 200,"15.33","95.79" ]
+#          - [ 参与平台xy活动，0#使用优惠券检验应付金额, 18679256505,3, 38311, 200,"14.00","97.12" ]
+#          - [ 参与平台xy活动，98#使用优惠券检验应付金额, 18679256505,4, 38311, 200,"13.20","97.92" ]
+
+    用例:订单计算及下单、售后流程:
+      testcase: testcases/P端接口/API对接主要接口/订单支付及售后退款.yml
+
+    用例:$name4:
+      testcase: testcases/P端接口/API对接主要接口/发放优惠券.yml
+      parameters:
+        name4-sourceId-result4_1-result4_2-result4_3: ${P(data/sendCoupon.csv)}
+
+    用例:$name5:
+      testcase: testcases/P端接口/API对接主要接口/用户兑换优惠券.yml
+      parameters:
+        name5-code-result5_1-result5_2-result5_3: ${P(data/exchangeCode_coupon.csv)}
+#
+    用例:查询优惠券:
+      testcase: testcases/P端接口/API对接主要接口/查询优惠券.yml

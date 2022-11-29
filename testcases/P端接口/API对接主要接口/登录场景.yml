@@ -1,0 +1,17 @@
+#- config:
+#    name: 登录接口各种场景
+#    base_url: ${ENV(PPORTURL)}
+#    output:
+#      - token
+#
+#- test:
+#    name: $name
+#    api: api/P端接口/P端登录接口.yml
+#    variables:
+#      version: $version
+#      platformName: $platformName
+#      sign: $sign
+#      tempStamp: ${getTime_api()} 
+#    validate:
+#      - eq: [ "status_code", 200 ]
+#

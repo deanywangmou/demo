@@ -1,0 +1,4 @@
+name5,code,result5_1,result5_2,result5_3
+兑换码_错误兑换码兑换失败,Tscov9wz55qoz7_False,"兑换码错误！",500,False
+兑换码_正确兑换码未过期兑换成功,Tscov9wz55qoz7,"操作成功",200,True
+兑换码_正确兑换码过期兑换失败,Ts8o3dwz5pkot5,"兑换码已过期！",500,False

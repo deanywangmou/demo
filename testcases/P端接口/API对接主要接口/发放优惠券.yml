@@ -1,0 +1,38 @@
+- config:
+    name: 发放优惠券
+    base_url: ${ENV(PPORTURL)}
+    variables:
+      sign: ${forEach(0)}
+      timestamp: ${forEach(1)}
+      platformName: Rbxac
+      userPhone: "18679256505"
+      sourceId: $sourceId   #兑换码
+      version: 6.5.6
+
+- test:
+    name: $name4
+    api: api/P端接口/API对接主要接口/发放优惠券接口.yml
+    variables:
+      version: $version
+      platformName: $platformName
+      userPhone: $userPhone
+      sign: $sign
+      timestamp: $timestamp
+      clientType: "5"
+      productType: "79" #平台标识
+      socialType: "4"
+      sourceType: "2"   #渠道
+      Authorization:
+      cityName:
+      latitude:
+      longitude:
+      machineNo:
+      noAuth:
+      osType:
+      plat:
+      versionBuild:
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, $result4_1 ]
+      - str_eq: [ json.code, $result4_2 ]
+      - str_eq: [ json.success, $result4_3 ]

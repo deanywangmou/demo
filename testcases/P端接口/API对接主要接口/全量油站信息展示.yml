@@ -1,0 +1,20 @@
+- config:
+    name: 查看全量油站数据
+    base_url: ${ENV(PPORTURL)}
+    variables:
+      sign: ${forEach(0)}
+      timestamp: ${forEach(1)}
+
+- test:
+    name: 查看全量油站数据信息
+    api: api/P端接口/API对接主要接口/全量油站接口.yml
+    variables:
+      version: 6.5.6
+      platformName: Rbxac
+      sign: $sign
+      timestamp: $timestamp
+
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, "操作成功" ]
+

@@ -1,0 +1,29 @@
+name: 油站详情接口
+base_url: ${ENV(PPORTURL)}
+variables:
+  version: $version
+  platformName: $platformName
+  stationId: $stationId
+  userPhone: $userPhone
+  sign: $sign
+  timestamp: $timestamp
+
+request:
+  url: /gateway/ensd-service/openApi/stations/detail/$version/$platformName/$stationId/$userPhone/$sign/$timestamp
+  method: GET
+  headers:
+    Authorization:
+    clientType: $clientType
+    productType: $productType   #平台标识
+    socialType: $socialType
+    sourceType: $sourceType     #渠道:C：1, P:2, Y:3
+    cityName: $cityName
+    latitude: $latitude
+    longitude: $longitude
+    machineNo: $machineNo
+    noAuth: $noAuth
+    osType: $osType
+    plat: $plat
+    versionBuild: $versionBuild
+validate:
+  - eq: [ "status_code", 200 ]

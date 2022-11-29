@@ -1,0 +1,49 @@
+name: h5用户登录接口
+base_url: ${ENV(PPORTURL)}
+variables:
+  h5LoginVo:
+    accessToken: $accessToken
+    apName: $apName
+    avatar: $avatar
+    latitude: $latitude
+    loginType: $loginType
+    longitude: $longitude
+    machineNo: $machineNo
+    openId: $openId
+    phone: $phone
+    phoneType: $phoneType
+    sex: $sex
+    smsCode: $smsCode
+    socialAppId: $socialAppId
+    socialType: $socialType
+    sourceChannel: $sourceChannel
+    unionId: $unionId
+    userPhoneSerial: $userPhoneSerial
+    version: $version
+
+request:
+  url: /gateway/ensd-service/login
+  method: POST
+  headers:
+    Content-Type: application/json
+    clientType: "5"     #1:易加油app，2： 易加油app，3： 微信小程序,4： 支付宝小程序,5: 线下扫码h5
+    productType: "79"  #平台标识
+    socialType: "4"    #1, 微信小程序\n2, 微信公众号\n3, 支付宝小程序\n4, P端开放平台
+    sourceType: "2"   #渠道:C：1, P:2, Y:3
+    Authorization:
+    adCode:
+    cityName:
+    latitude:
+    longitude:
+    machineNo:
+    noAuth: "0"   #1需要鉴权，0不需要鉴权必传（h5用的）
+    osType:
+    plat: "79"   #平台标识
+    sign: ${getSign_api()}
+    timestamp: ${getTime_api()} 
+    userPhone: "18679256505"
+    version: "6.5.6"
+    versionBuild:
+  json: $h5LoginVo
+validate:
+  - eq: [ status_code, 200 ]

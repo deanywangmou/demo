@@ -1,0 +1,29 @@
+- config:
+    name: P端各渠道登录场景
+    base_url: ${ENV(PPORTURL)}
+    variables:
+      accessToken: "ASDSADASD21312"
+      apName: "易加油app"
+      avatar: "ASDSADASD21312"
+      latitude: "12321321321321"
+      loginType: "BY_PHONE"
+      longitude: "12321321321321"
+      machineNo: "三星S11"
+      openId: "ASDSADASD21312"
+      phone: "18679256505"
+      phoneType: "1"
+      sex: "0"
+      smsCode: "123456"
+      socialAppId: "1"
+      socialType: "1"
+      sourceChannel: "12321321321321"
+      unionId: "ASDSADASD21312"
+      userPhoneSerial: "12321321321321"
+      version: "6.5.6"
+
+- test:
+    name: h5用户登录接口
+    api: api/P端接口/h5模块登录/h5用户登录接口.yml
+    validate:
+      - eq: [ status_code ,200 ]
+

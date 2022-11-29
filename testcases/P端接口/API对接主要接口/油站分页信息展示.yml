@@ -1,0 +1,21 @@
+- config:
+    name: 分页查看油站信息
+    base_url: ${ENV(PPORTURL)}
+    variables:
+      sign: ${forEach(0)}
+      timestamp: ${forEach(1)}
+
+- test:
+    name: 分页查看油站信息
+    api: api/P端接口/API对接主要接口/油站分页接口.yml
+    variables:
+      currentPage: $currentPage
+      pageSize: $pageSize
+      platformName: Rbxac
+      sign: $sign
+      timestamp: $timestamp
+    validate:
+      - eq: [ "status_code", 200 ]
+      - eq: [ json.message, "操作成功" ]
+      - eq: [ json.success, True ]
+

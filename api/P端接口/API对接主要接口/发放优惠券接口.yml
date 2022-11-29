@@ -1,0 +1,29 @@
+name: 发放优惠券接口
+base_url: ${ENV(PPORTURL)}
+variables:
+  version: $version
+  platformName: $platformName
+  userPhone: $userPhone
+  sourceId: $sourceId
+  sign: $sign
+  timestamp: $timestamp
+
+request:
+  url: /gateway/ensd-service/openApi/merchandise/send/$version/$platformName/$userPhone/$sourceId/$sign/$timestamp
+  method: GET
+  headers:
+    clientType: $clientType
+    productType: $productType   #平台标识
+    socialType: $socialType
+    sourceType: $sourceType     #渠道:C：1, P:2, Y:3
+    Authorization:
+    cityName:
+    latitude:
+    longitude:
+    machineNo:
+    noAuth:
+    osType:
+    plat:
+    versionBuild:
+validate:
+  - eq: [ "status_code", 200 ]
