@@ -16,7 +16,7 @@ variables:
     socialType:
     sourceChannel: 1
     unionId:
-    userPhoneSerial: 12321321321321
+    userPhoneSerial: 12321321321321222
     version: 6.4.3
 
 request:
