@@ -257,5 +257,5 @@ if __name__ == '__main__':
     import random
     num = random.randint(0, 4)
     person = ["高老师", "铭奇", "国旺", "佳辉", "石根"]
-    p_2 = ["a","asd","a"]
+    p_2 = ["a","asd","a","as"]
     print("%s主持周四分享", person[num])
